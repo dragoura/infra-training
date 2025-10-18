@@ -1,4 +1,6 @@
-terraform/terraform.tfvars #todo add to gitlab/github secrets
-terraform/.terraform
+terraform/terraform.tfvars
+terraform/.terraform/
 terraform/terraform.tfstate
 terraform/terraform.tfstate.backup
+
+.DS_Store
