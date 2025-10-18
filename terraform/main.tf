@@ -1,4 +1,4 @@
-resource "digitalocean_droplet" "web" {
+resource "digitalocean_droplet" "workers" {
   count  = 3
   name   = "infra-${count.index + 1}"
   region = "fra1"
@@ -10,7 +10,7 @@ resource "digitalocean_droplet" "web" {
 
 resource "local_file" "ansible_inventory" {
   content  = templatefile("${path.module}/inventory.tpl", {
-    droplet_ips = digitalocean_droplet.web[*].ipv4_address
+    droplet_ips = digitalocean_droplet.workers[*].ipv4_address
     ssh_private_key_path = pathexpand(var.ssh_private_key_path)
   })
   filename = "${path.module}/../ansible/inventory.ini"
