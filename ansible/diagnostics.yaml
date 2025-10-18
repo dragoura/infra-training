@@ -1,0 +1,42 @@
+---
+- name: Connectivity and diagnostics
+  hosts: workers
+  gather_facts: no   
+  tasks:
+
+    - name: Ping hosts
+      ansible.builtin.ping:
+
+    - name: Check uptime
+      ansible.builtin.command: uptime
+      register: uptime_out
+
+    - name: Show uptime result
+      ansible.builtin.debug:
+        var: uptime_out.stdout
+
+    - name: Check disk usage
+      ansible.builtin.command: df -h
+      register: disk_out
+
+    - name: Show disk usage
+      ansible.builtin.debug:
+        var: disk_out.stdout_lines
+
+    - name: Check memory usage
+      ansible.builtin.command: free -m
+      register: mem_out
+
+    - name: Show memory usage
+      ansible.builtin.debug:
+        var: mem_out.stdout_lines
+
+    - name: Check CPU load
+      ansible.builtin.shell: cat /proc/loadavg
+      register: cpu_out
+
+    - name: Show CPU load
+      ansible.builtin.debug:
+        var: cpu_out.stdout
+
+
