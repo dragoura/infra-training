@@ -1,9 +1,11 @@
 ---
 - name: Setup new sudo user if not exists
   hosts: workers
-  gather_facts: no  
+  gather_facts: no 
   roles:
-    - security_access_bootstrap
+    - role: security_access_bootstrap
+      vars:
+        ansible_user: root
 
 - name: Connectivity and diagnostics
   hosts: all

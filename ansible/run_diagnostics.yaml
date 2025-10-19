@@ -1,0 +1,5 @@
+- name: Connectivity and diagnostics
+  hosts: all
+  gather_facts: no   
+  roles:
+    - health_diagnostics
