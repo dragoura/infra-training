@@ -1,0 +1,36 @@
+---
+- name: Setup new sudo user if not exists
+  hosts: workers
+  gather_facts: no  
+  roles:
+    - security_access_bootstrap
+
+- name: Connectivity and diagnostics
+  hosts: all
+  gather_facts: no   
+  roles:
+    - health_diagnostics
+
+- name: SSH hardening
+  hosts: workers
+  gather_facts: no   
+  roles:
+    - security_ssh_hardening
+
+- name: Configure UFW
+  hosts: workers
+  become: true
+  gather_facts: no   
+  roles:
+    - security_ufw
+
+- name: Install Node Exporter
+  hosts: workers
+  become: true
+  roles:
+    - geerlingguy.node_exporter
+
+- name: Configure Prometheus
+  hosts: utilities
+  roles:
+    - monitoring_prometheus
