@@ -1,0 +1,14 @@
+- name: Add node-exporter jobs under scrape_configs
+  ansible.builtin.blockinfile:
+    path: /etc/prometheus/prometheus.yml
+    marker: "# {mark} ANSIBLE MANAGED NODE JOBS"
+    insertafter: '^scrape_configs:'
+    block: |
+      {% for h in groups['workers'] %}
+        - job_name: "node-{{ hostvars[h].inventory_hostname }}"
+          static_configs:
+            - targets:
+                - "{{ (hostvars[h].ansible_host | default(hostvars[h].ansible_default_ipv4.address)) }}:9100"
+      {% endfor %}
+  notify: reload prometheus
+  become: true
