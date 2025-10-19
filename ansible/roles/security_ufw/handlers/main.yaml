@@ -1,3 +1,0 @@
-- name: Reload firewall
-  ansible.builtin.command: ufw reload
-  become: true

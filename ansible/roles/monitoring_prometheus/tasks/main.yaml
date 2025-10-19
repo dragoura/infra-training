@@ -8,7 +8,7 @@
         - job_name: "node-{{ hostvars[h].inventory_hostname }}"
           static_configs:
             - targets:
-                - "{{ (hostvars[h].ansible_host | default(hostvars[h].ansible_default_ipv4.address)) }}:9100"
+                - "{{ hostvars[h].ansible_host }}:9100"
       {% endfor %}
-  notify: reload prometheus
+  notify: Reload Prometheus
   become: true
