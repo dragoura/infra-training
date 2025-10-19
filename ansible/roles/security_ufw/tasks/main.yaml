@@ -1,0 +1,20 @@
+- name: Allow everything and enable UFW
+  community.general.ufw:
+    state: enabled
+    default: deny
+  become: true
+  notify: Reload ufw
+
+- name: Allow SSH connections
+  community.general.ufw:
+    rule: allow
+    name: OpenSSH
+  become: true
+
+- name: Allow Node Exporter traffic
+  community.general.ufw:
+    rule: allow
+    port: "{{ node_exporter_listen_port }}"
+    from_ip: "{{ grafana_ip_address }}" 
+  become: true
+  notify: Reload ufw
