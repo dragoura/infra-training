@@ -1,6 +1,6 @@
 [workers]
-%{ for ip in droplet_ips ~}
-${ip}
+%{ for idx, ip in droplet_ips ~}
+${droplet_names[idx]} ansible_host=${ip}
 %{ endfor ~}
 
 [utilities]

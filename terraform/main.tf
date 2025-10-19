@@ -11,6 +11,7 @@ resource "digitalocean_droplet" "workers" {
 resource "local_file" "ansible_inventory" {
   content  = templatefile("${path.module}/inventory.tpl", {
     droplet_ips = digitalocean_droplet.workers[*].ipv4_address
+    droplet_names = digitalocean_droplet.workers[*].name
     ssh_private_key_path = pathexpand(var.ssh_private_key_path)
   })
   filename = "${path.module}/../ansible/inventory.ini"
