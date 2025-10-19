@@ -1,0 +1,8 @@
+PermitRootLogin no
+PubkeyAuthentication yes
+PasswordAuthentication no
+PermitEmptyPasswords no
+KbdInteractiveAuthentication no
+UsePAM no
+AuthenticationMethods publickey
+AllowUsers {{ ssh_allow_users | join(' ') }}
